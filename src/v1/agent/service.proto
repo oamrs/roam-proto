@@ -3,7 +3,7 @@ syntax = "proto3";
 package v1.agent;
 
 service AgentService {
-  rpc Connect (ConnectRequest) returns (ConnectResponse);
+  rpc Register (ConnectRequest) returns (ConnectResponse);
   rpc StreamEvents (EventStreamRequest) returns (stream Event);
 }
 
