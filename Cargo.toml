@@ -3,6 +3,7 @@ name = "roam-proto"
 version = "0.1.0"
 edition = "2021"
 description = "Shared Protocol Buffer definitions for ROAM Framework"
+license = "MIT OR Apache-2.0"
 
 [dependencies]
 prost = "0.12"
