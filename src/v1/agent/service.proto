@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package v1.agent;
+
+service AgentService {
+  rpc Connect (ConnectRequest) returns (ConnectResponse);
+  rpc StreamEvents (EventStreamRequest) returns (stream Event);
+}
+
+message ConnectRequest {
+  string agent_id = 1;
+  string version = 2;
+}
+
+message ConnectResponse {
+  bool success = 1;
+  string session_id = 2;
+}
+
+message EventStreamRequest {
+  string session_id = 1;
+}
+
+message Event {
+  string type = 1;
+  bytes payload = 2;
+}
