@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package v1.query;
+
+service QueryService {
+  rpc ExecuteQuery (ExecuteQueryRequest) returns (ExecuteQueryResponse);
+  rpc ValidateQuery (ValidateQueryRequest) returns (ValidationResponse);
+}
+
+message ExecuteQueryRequest {
+  string db_identifier = 1;
+  string query = 2;
+  int32 limit = 3;
+  int32 timeout_seconds = 4;
+}
+
+message ExecuteQueryResponse {
+  int32 status = 1;
+  int32 row_count = 2;
+  int32 execution_ms = 3;
+  string error_message = 4;
+  string timestamp = 5;
+}
+
+message ValidateQueryRequest {
+  string db_identifier = 1;
+  string query = 2;
+}
+
+message ValidationResponse {
+  bool valid = 1;
+  string error_message = 2;
+}

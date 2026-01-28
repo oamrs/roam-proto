@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package v1.schema;
+
+service SchemaService {
+  rpc GetSchema (GetSchemaRequest) returns (GetSchemaResponse);
+  rpc GetTable (GetTableRequest) returns (GetTableResponse);
+}
+
+message GetSchemaRequest {
+  string db_identifier = 1;
+}
+
+message GetSchemaResponse {
+  string schema_id = 1;
+  string database_type = 2;
+  string generated_at = 3;
+}
+
+message GetTableRequest {
+  string db_identifier = 1;
+  string table_name = 2;
+}
+
+message GetTableResponse {
+  string generated_at = 1;
+}
