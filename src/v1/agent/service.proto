@@ -16,11 +16,11 @@ message ConnectRequest {
 enum SchemaMode {
   // Discovery Mode: Uses DB introspection. READ-ONLY.
   // Agents can query legacy data but cannot modify schema or data.
-  DATA_ONLY = 0;
+  DATA_FIRST = 0;
 
   // App Extension Mode: Only allows access to explicit registered models. READ-WRITE.
   // ROAM trusts code-defined validation rules to allow mutations.
-  CODE_STRICT = 1;
+  CODE_FIRST = 1;
 
   // Mixed Mode: Uses registered models for known tables, falls back to introspection. READ-ONLY.
   // Defaults to safety (Read Only) due to the presence of unvalidated legacy data.
