@@ -1,9 +1,13 @@
 [package]
-name = "roam-proto"
+name = "oam-proto"
 version = "0.1.0"
 edition = "2021"
-description = "Shared Protocol Buffer definitions for ROAM Framework"
+description = "Shared Protocol Buffer definitions for the OAM Framework"
 license = "MIT OR Apache-2.0"
+authors = ["OAMRS Contributors"]
+repository = "https://github.com/oamrs/roam"
+keywords = ["grpc", "protobuf", "agent", "oam"]
+categories = ["network-programming"]
 
 [dependencies]
 prost = "0.12"
