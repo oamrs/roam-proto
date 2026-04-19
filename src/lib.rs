@@ -91,10 +91,10 @@ mod tests {
     fn field_mapping_def_has_expected_fields() {
         let fm = FieldMappingDef {
             column_name: "userId".to_string(),
-            snake_case_name: "user_id".to_string(),
-            convention: "hibernate".to_string(),
+            logical_name: "user_id".to_string(),
+            convention: "Hibernate".to_string(),
         };
-        assert_eq!(fm.convention, "hibernate");
+        assert_eq!(fm.convention, "Hibernate");
     }
 
     #[test]

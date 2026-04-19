@@ -66,6 +66,6 @@ message UserDefinedTypeDef {
 
 message FieldMappingDef {
   string column_name = 1;
-  string snake_case_name = 2;
+  string logical_name = 2;
   string convention = 3;
 }
