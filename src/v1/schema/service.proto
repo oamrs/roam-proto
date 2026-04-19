@@ -15,6 +15,8 @@ message GetSchemaResponse {
   string schema_id = 1;
   string database_type = 2;
   string generated_at = 3;
+  repeated TableDef tables = 4;
+  repeated UserDefinedTypeDef user_defined_types = 5;
 }
 
 message GetTableRequest {
@@ -24,4 +26,46 @@ message GetTableRequest {
 
 message GetTableResponse {
   string generated_at = 1;
+  TableDef table = 2;
+}
+
+message TableDef {
+  string name = 1;
+  repeated ColumnDef columns = 2;
+  repeated IndexDef indexes = 3;
+  repeated TriggerDef triggers = 4;
+  repeated FieldMappingDef field_mappings = 5;
+}
+
+message ColumnDef {
+  string name = 1;
+  string data_type = 2;
+  bool is_nullable = 3;
+  string default_value = 4;
+  bool is_primary_key = 5;
+}
+
+message IndexDef {
+  string name = 1;
+  repeated string columns = 2;
+  bool is_unique = 3;
+}
+
+message TriggerDef {
+  string name = 1;
+  string timing = 2;
+  string event = 3;
+  string body = 4;
+}
+
+message UserDefinedTypeDef {
+  string name = 1;
+  string base_type = 2;
+  repeated string variants = 3;
+}
+
+message FieldMappingDef {
+  string column_name = 1;
+  string snake_case_name = 2;
+  string convention = 3;
 }

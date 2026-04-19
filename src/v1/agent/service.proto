@@ -39,4 +39,72 @@ message EventStreamRequest {
 message Event {
   string type = 1;
   bytes payload = 2;
+  oneof typed_payload {
+    SchemaChangedPayload schema_changed = 3;
+    SchemaIntrospectedPayload schema_introspected = 4;
+    AgentRegisteredPayload agent_registered = 5;
+    AgentHeartbeatPayload agent_heartbeat = 6;
+    QueryExecutedPayload query_executed = 7;
+    EntityResolvedPayload entity_resolved = 8;
+    ValidationFailedPayload validation_failed = 9;
+    TriggerFiredPayload trigger_fired = 10;
+    ErrorPayload error = 11;
+    CustomPayload custom = 12;
+  }
+}
+
+message SchemaChangedPayload {
+  string schema_id = 1;
+  string database_type = 2;
+}
+
+message SchemaIntrospectedPayload {
+  string schema_id = 1;
+  string database_type = 2;
+}
+
+message AgentRegisteredPayload {
+  string agent_id = 1;
+  string session_id = 2;
+  string version = 3;
+}
+
+message AgentHeartbeatPayload {
+  string agent_id = 1;
+  string timestamp = 2;
+}
+
+message QueryExecutedPayload {
+  string query = 1;
+  int64 row_count = 2;
+  double duration_ms = 3;
+}
+
+message EntityResolvedPayload {
+  string table_name = 1;
+  string entity_type = 2;
+}
+
+message ValidationFailedPayload {
+  string table_name = 1;
+  string field_name = 2;
+  string reason = 3;
+}
+
+message TriggerFiredPayload {
+  string table_name = 1;
+  string trigger_name = 2;
+  string operation = 3;
+  string row_id = 4;
+  string timestamp = 5;
+}
+
+message ErrorPayload {
+  string message = 1;
+  string source = 2;
+}
+
+message CustomPayload {
+  string name = 1;
+  bytes data = 2;
 }
