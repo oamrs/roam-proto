@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.4.0](https://github.com/oamrs/roam/compare/oam-proto-v0.3.0...oam-proto-v0.4.0) (2026-04-20)
+
+
+### Features
+
+* ORM metadata introspection + E2E Dolt branch isolation ([07809ba](https://github.com/oamrs/roam/commit/07809ba9f975f8d69b1443e650c07b253be54de9))
+* ORM metadata introspection + E2E Dolt branch isolation ([bc33ca6](https://github.com/oamrs/roam/commit/bc33ca636809beb43bebc36145dddcc9dbbad8ec))
+* RLS/CLS authorization middleware with DoltPolicyProvider ([4796b1d](https://github.com/oamrs/roam/commit/4796b1dc649386b07880c2e96e6764d253fa67e9))
+
+
+### Bug Fixes
+
+* address PR review comments ([4e4e792](https://github.com/oamrs/roam/commit/4e4e792fc98df2d6bb21ef470936a342d872443c))
+
 ## [0.3.0](https://github.com/oamrs/roam/compare/oam-proto-v0.2.0...oam-proto-v0.3.0) (2026-04-18)
 
 
