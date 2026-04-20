@@ -14,11 +14,11 @@ pub mod v1 {
 
 #[cfg(test)]
 mod tests {
+    use super::v1::agent::Event;
     use super::v1::schema::{
         ColumnDef, FieldMappingDef, GetSchemaResponse, GetTableResponse, IndexDef, TableDef,
         TriggerDef, UserDefinedTypeDef,
     };
-    use super::v1::agent::Event;
 
     #[test]
     fn schema_response_has_tables_field() {
