@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.0](https://github.com/oamrs/roam/compare/oam-proto-v0.4.0...oam-proto-v0.5.0) (2026-04-21)
+
+
+### Features
+
+* **control-plane:** add multi-step workflow orchestration ([b4aacb9](https://github.com/oamrs/roam/commit/b4aacb94b284462eb75c12b387293eed9a2d9f91))
+* **control-plane:** add multi-step workflow orchestration ([38548d5](https://github.com/oamrs/roam/commit/38548d55326963c4f57d3568e89477258f408011))
+
 ## [0.4.0](https://github.com/oamrs/roam/compare/oam-proto-v0.3.0...oam-proto-v0.4.0) (2026-04-20)
 
 
