@@ -1,0 +1,163 @@
+syntax = "proto3";
+
+package v1.control;
+
+// ControlPlaneService orchestrates multi-step LLM tool workflows.
+//
+// An LLM agent submits a structured plan (a DAG of tool-call steps), then
+// executes steps one at a time.  After each step the server returns a
+// LlmContextUpdate that the calling SDK injects into the next LLM API request
+// as updated tool definitions and system-prompt hints.  This closes the
+// feedback loop: the LLM always sees the latest schema and prior step output
+// before choosing its next action.
+service ControlPlaneService {
+  // Submit a new multi-step plan for the given session.
+  rpc SubmitPlan (SubmitPlanRequest) returns (SubmitPlanResponse);
+
+  // Return the current status of a plan and all its steps.
+  rpc GetPlanStatus (GetPlanStatusRequest) returns (GetPlanStatusResponse);
+
+  // Execute a single step within a plan.
+  // The response carries a LlmContextUpdate the caller should feed back to
+  // the LLM before requesting the next step.
+  rpc ExecuteStep (ExecuteStepRequest) returns (ExecuteStepResponse);
+
+  // Cancel a plan that is pending or running.
+  rpc CancelPlan (CancelPlanRequest) returns (CancelPlanResponse);
+
+  // Stream plan lifecycle events for a plan_id.
+  rpc StreamPlanEvents (StreamPlanEventsRequest) returns (stream PlanEvent);
+}
+
+// ── Plan submission ───────────────────────────────────────────────────────────
+
+message PlanStepDef {
+  // Stable identifier for this step within the plan (used in depends_on).
+  string id = 1;
+  // Human-readable label.
+  string name = 2;
+  // The logical tool name (maps to a ToolContract registered in the server).
+  string tool_name = 3;
+  // Tool intent: "read_select" | "write_insert" | "write_update" |
+  // "write_delete" | "admin"
+  string intent = 4;
+  // SQL template.  Use {{step.<dep_id>.output}} to reference the JSON output
+  // of a prior step; the server substitutes these before execution.
+  string query_template = 5;
+  // Identifiers of other steps that must complete before this one runs.
+  repeated string depends_on = 6;
+  // Table names whose schema should be snapshotted before and after this step
+  // to produce the SchemaTableDelta list in LlmContextUpdate.
+  repeated string schema_table_hints = 7;
+}
+
+message SubmitPlanRequest {
+  string session_id = 1;
+  string name = 2;
+  string description = 3;
+  repeated PlanStepDef steps = 4;
+}
+
+message SubmitPlanResponse {
+  bool success = 1;
+  string plan_id = 2;
+  string error_message = 3;
+}
+
+// ── Plan status ───────────────────────────────────────────────────────────────
+
+message GetPlanStatusRequest {
+  string plan_id = 1;
+}
+
+message GetPlanStatusResponse {
+  string plan_id = 1;
+  // "pending" | "running" | "completed" | "failed" | "cancelled"
+  string status = 2;
+  repeated StepStatusRecord steps = 3;
+  string error_message = 4;
+}
+
+message StepStatusRecord {
+  string step_id = 1;
+  string name = 2;
+  // "pending" | "running" | "completed" | "failed" | "skipped"
+  string status = 3;
+  int64 row_count = 4;
+  // Serialised JSON of the query result rows.
+  string result_json = 5;
+  // Serialised JSON of the SchemaTableDelta list produced by this step.
+  string schema_delta_json = 6;
+  string executed_at = 7;
+}
+
+// ── Step execution ────────────────────────────────────────────────────────────
+
+message ExecuteStepRequest {
+  string plan_id = 1;
+  string step_id = 2;
+}
+
+message ExecuteStepResponse {
+  bool success = 1;
+  StepStatusRecord step_result = 2;
+  // Feed-back payload for the LLM: updated tool definitions + prompt hints.
+  LlmContextUpdate llm_context_update = 3;
+  string error_message = 4;
+}
+
+// LlmContextUpdate is the explicit feedback contract.
+//
+// After receiving this message the calling SDK should:
+//   1. Replace or augment the tool definitions it passes to the LLM with the
+//      entries in schema_additions.
+//   2. Append augmentation_hints as additional lines in the system prompt
+//      before the next LLM API call.
+//   3. Make tool_output_json available as the result of the just-executed step
+//      so the LLM can reference it when choosing the next step.
+message LlmContextUpdate {
+  string plan_id = 1;
+  string step_id = 2;
+  // JSON-serialised query result rows from the step that just executed.
+  string tool_output_json = 3;
+  // Schema changes detected during the step (new or modified tables/columns).
+  repeated SchemaTableDelta schema_additions = 4;
+  // Plain-text hints to inject into the LLM system prompt.
+  repeated string augmentation_hints = 5;
+}
+
+// Describes a single table-level schema change detected during a step.
+message SchemaTableDelta {
+  string table_name = 1;
+  // "NEW" | "MODIFIED" | "REMOVED"
+  string operation = 2;
+  // JSON-serialised TableDef (compatible with SchemaService.GetTable response).
+  string table_def_json = 3;
+}
+
+// ── Cancellation ─────────────────────────────────────────────────────────────
+
+message CancelPlanRequest {
+  string plan_id = 1;
+}
+
+message CancelPlanResponse {
+  bool success = 1;
+  string error_message = 2;
+}
+
+// ── Event stream ─────────────────────────────────────────────────────────────
+
+message StreamPlanEventsRequest {
+  string plan_id = 1;
+}
+
+// A single event in the plan lifecycle stream.
+message PlanEvent {
+  string plan_id = 1;
+  // "PlanCreated" | "PlanStepExecuted" | "PlanCompleted" | "PlanFailed"
+  string event_type = 2;
+  // JSON payload specific to the event_type.
+  string payload_json = 3;
+  string timestamp = 4;
+}

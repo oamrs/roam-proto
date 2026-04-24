@@ -1,0 +1,19 @@
+[package]
+name = "schemabound-proto"
+version = "0.5.0"
+edition = "2021"
+description = "Shared Protocol Buffer definitions for the Schemabound Framework"
+license = "MIT OR Apache-2.0"
+authors = ["Schemabound Contributors"]
+repository = "https://github.com/schemabound/schemabound"
+readme = "README.md"
+keywords = ["grpc", "protobuf", "agent", "schemabound"]
+categories = ["network-programming"]
+
+[dependencies]
+prost = "0.12"
+tonic = "0.11"
+
+[build-dependencies]
+tonic-build = "0.11"
+protobuf-src = "1.1"
