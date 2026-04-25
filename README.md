@@ -1,6 +1,6 @@
 # schemabound-proto
 
-Shared Protocol Buffer definitions for the [OAM (Object Agent Mapping)](https://github.com/schemabound/schemabound) framework. This crate is the contract between the OAM backend and all client SDKs (Rust, Python, .NET, Go).
+Shared Protocol Buffer definitions for the [OAM (Object Agent Mapping)](https://github.com/schemabound/enterprise) framework. This crate is the contract between the OAM backend and all client SDKs (Rust, Python, .NET, Go).
 
 ## Services
 
