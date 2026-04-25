@@ -1,6 +1,6 @@
 # Changelog
 
-## [0.2.0](https://github.com/schemabound/enterprise/compare/schemabound-proto-v0.1.0...schemabound-proto-v0.2.0) (2026-04-25)
+## [0.1.0](https://github.com/schemabound/enterprise/tree/HEAD) (2026-04-25) (2026-04-25)
 
 
 ### ⚠ BREAKING CHANGES
