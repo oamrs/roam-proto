@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.1](https://github.com/schemabound/enterprise/compare/schemabound-proto-v0.1.0...schemabound-proto-v0.1.1) (2026-05-05)
+
+
+### Features
+
+* **backend:** implement full_stack_agent_auth_flow integration test ([9326941](https://github.com/schemabound/enterprise/commit/9326941a88ec884369245f60ff35a40034d42837))
+* **backend:** implement full_stack_agent_auth_flow integration test ([372df7c](https://github.com/schemabound/enterprise/commit/372df7c6992d8be3984a399ba76eef7b322e982b))
+
 ## [0.1.0](https://github.com/schemabound/enterprise/tree/HEAD) (2026-04-25) (2026-04-25)
 
 
