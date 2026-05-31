@@ -43,7 +43,7 @@ service SchemaService {
 
 ```toml
 [dependencies]
-schemabound-proto = "0.1"
+schemabound-proto = "0.2"
 tonic = "0.11"
 prost = "0.12"
 ```
