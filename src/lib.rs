@@ -15,4 +15,3 @@ pub mod v1 {
         tonic::include_proto!("v1.schema");
     }
 }
-
