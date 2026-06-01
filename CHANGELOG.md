@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/schemabound/enterprise/compare/schemabound-proto-v0.1.1...schemabound-proto-v0.1.2) (2026-06-01)
+
+
+### Bug Fixes
+
+* **ci:** resolve pre-existing CI failures ([b49938b](https://github.com/schemabound/enterprise/commit/b49938b24a86165107324026d40d46ee8517ac30))
+
 ## [0.1.1](https://github.com/schemabound/enterprise/compare/schemabound-proto-v0.1.0...schemabound-proto-v0.1.1) (2026-05-05)
 
 
