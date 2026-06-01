@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/schemabound/enterprise/compare/schemabound-proto-v0.1.2...schemabound-proto-v0.1.3) (2026-06-01)
+
+
+### Bug Fixes
+
+* update subtrees.conf to use deduplicated repo names ([597500f](https://github.com/schemabound/enterprise/commit/597500f21dd2c4ad327450d8fc10693f1bdc43e0))
+
 ## [0.1.2](https://github.com/schemabound/enterprise/compare/schemabound-proto-v0.1.1...schemabound-proto-v0.1.2) (2026-06-01)
 
 
